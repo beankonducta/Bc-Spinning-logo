@@ -1,1 +1,1 @@
-![](readme.svg)
+# A spinning three.js logo
