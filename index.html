@@ -79,7 +79,8 @@
         });
       }
 
-      injectScript("https://threejs.org/build/three.js")
+      // change these to s/whatever.js for squarespce
+      injectScript("js/three.js")
         .then(() => {
           console.log("Three js loaded!");
           injectScript("js/SVGLoader.js")
@@ -101,17 +102,17 @@
               );
               camera.position.z = 100;
 
-              const light = new THREE.PointLight(0xffffff, 5000);
-              light.position.set(100, 100, 100);
+              const light = new THREE.PointLight(0xffffff, 5);
+              light.position.set(500, 500, 5);
               scene.add(light);
 
               document.querySelector("#panel").appendChild(renderer.domElement);
 
               window.addEventListener("resize", function (e) {
-                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.aspect = 1;
                 camera.updateProjectionMatrix();
 
-                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setSize(200, 200);
               });
 
               const svgMarkup = document.getElementById("logo").outerHTML;
@@ -121,16 +122,12 @@
               const svgGroup = new THREE.Group();
               svgGroup.scale.y *= -1;
 
-              const material = new THREE.MeshPhysicalMaterial();
-              material.reflectivity = 1;
-              material.transmission = 1.0;
-              material.roughness = 0;
-              material.metalness = 1;
-              material.clearcoat = 0;
-              material.clearcoatRoughness = 0;
+              const material = new THREE.MeshPhongMaterial();
               material.color = new THREE.Color(0xffffff);
-              material.ior = 0;
-              material.thickness = 10.0;
+              material.specular = new THREE.Color(0xe6006f);
+              material.emissive = new THREE.Color(0x000000);
+              material.reflectivity = 0.5;
+              material.shininess = 10;
 
               svgData.paths.forEach((path, i) => {
                 const shapes = path.toShapes(true);
